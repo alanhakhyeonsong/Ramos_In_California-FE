@@ -45,7 +45,11 @@ export default {
         };
         const { data } = await loginMember(memberData); // 결과로 토큰이 반환됨.
         console.log(data);
-        this.logMessage = `${data.data.nickname} 님 환영합니다.`; // data에 접근하지 말고 Vuex를 활용해서 nickname을 찍어야 함.
+        this.logMessage = `${memberData.email} 님 환영합니다.`;
+        this.$store.commit('setEmail', memberData.email);
+        this.$store.commit('setAccessToken', data.data.accessToken);
+        this.$store.commit('setRefreshToken', data.data.refreshToken);
+        this.$router.push("/main");
       } catch (error) {
         console.log(error.response.data.message);
         this.logMessage = error.response.data.message;
