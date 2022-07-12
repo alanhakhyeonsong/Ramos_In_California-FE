@@ -4,8 +4,12 @@ const instance = axios.create({
     baseURL: process.env.VUE_APP_API_URL,
 });
 
-function registerMember(userData) {
-    return instance.post('auth/signup', userData);
+function registerMember(memberData) {
+    return instance.post('auth/signup', memberData);
 }
 
-export { registerMember };
+function loginMember(memberData) {
+    return instance.post('auth/login', memberData);
+}
+
+export { registerMember, loginMember };
