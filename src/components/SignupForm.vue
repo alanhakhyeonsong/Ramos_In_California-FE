@@ -47,7 +47,7 @@ export default {
         };
         const { data } = await registerMember(memberData);
         console.log(data);
-        this.logMessage = `${data.data.email} 님이 가입되었습니다.`;
+        this.logMessage = `${data.data.nickname} 님이 가입되었습니다.`;
       } catch (error) {
         console.log(error.response.data.message);
         this.logMessage = error.response.data.message;
