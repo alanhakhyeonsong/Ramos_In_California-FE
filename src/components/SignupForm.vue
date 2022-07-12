@@ -2,17 +2,19 @@
   <form @submit.prevent="submitForm">
     <div>
       <label for="email">email: </label>
-      <input id="email" type="text" v-model="email" />
+      <input id="email" type="text" v-model="email" placeholder="email"/>
     </div>
     <div>
       <label for="password">password: </label>
-      <input id="password" type="text" v-model="password" />
+      <input id="password" type="text" v-model="password" placeholder="password"/>
     </div>
     <div>
       <label for="nickname">nickname: </label>
-      <input id="nickname" type="text" v-model="nickname" />
+      <input id="nickname" type="text" v-model="nickname" placeholder="nickname"/>
     </div>
-    <button :disabled="!isEmailValid || !password" type="submit">회원 가입</button>
+    <button :disabled="!isEmailValid || !password || !nickname" type="submit">
+      회원 가입
+    </button>
     <p>{{ logMessage }}</p>
   </form>
 </template>
@@ -67,5 +69,28 @@ export default {
 </script>
 
 <style scoped>
+form {
+  border: 3px solid #f1f1f1;
+}
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
+button {
+  background-color: #3CB371;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: auto;
+}
+button:hover {
+  opacity: 0.8;
+}
 </style>
