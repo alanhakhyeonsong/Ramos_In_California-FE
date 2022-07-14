@@ -6,7 +6,7 @@
     </div>
     <div>
       <label for="password">password: </label>
-      <input id="password" type="text" v-model="password" placeholder="password"/>
+      <input id="password" type="password" v-model="password" placeholder="password"/>
     </div>
     <button :disabled="!isEmailValid || !password" type="submit">
       로그인
@@ -69,7 +69,7 @@ export default {
 form {
   border: 3px solid #f1f1f1;
 }
-input[type=text] {
+input[type=text], input[type=password] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;

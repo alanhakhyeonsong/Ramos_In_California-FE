@@ -6,7 +6,7 @@
     </div>
     <div>
       <label for="password">password: </label>
-      <input id="password" type="text" v-model="password" placeholder="password"/>
+      <input id="password" type="password" v-model="password" placeholder="password"/>
     </div>
     <div>
       <label for="nickname">nickname: </label>
@@ -56,6 +56,7 @@ export default {
       }
       finally {
         this.initForm();
+        this.$router.push('/login');
       }
 
     },
@@ -72,7 +73,7 @@ export default {
 form {
   border: 3px solid #f1f1f1;
 }
-input[type=text] {
+input[type=text], input[type=password] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;

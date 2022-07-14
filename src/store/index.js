@@ -6,14 +6,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     email: '',
-    nickname: '',
     accessToken: '',
     refreshToken: '',
   },
   getters: {
     isLogin(state) {
-      return state.nickname !== '';
+      return state.email !== '';
     },
+    getRefreshToken(state) {
+      return state.refreshToken;
+    }
   },
   mutations: {
     setEmail(state, email) {
@@ -22,8 +24,8 @@ export default new Vuex.Store({
     setNickname(state, nickname) {
       state.nickname = nickname;
     },
-    clearNickname(state) {
-      state.nickname = '';
+    clearEmail(state) {
+      state.email = '';
     },
     setAccessToken(state, accessToken) {
       state.accessToken = accessToken;
@@ -31,6 +33,12 @@ export default new Vuex.Store({
     setRefreshToken(state, refreshToken) {
       state.refreshToken = refreshToken;
     },
+    clearRefreshToken(state) {
+      state.refreshToken = '';
+    },
+    clearAccessToken(state) {
+      state.accessToken = '';
+    }
   },
   actions: {
   },
