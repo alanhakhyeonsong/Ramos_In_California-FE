@@ -12,4 +12,8 @@ function loginMember(memberData) {
     return instance.post('auth/login', memberData);
 }
 
-export { registerMember, loginMember };
+function logoutMember(memberData) {
+    return instance.post('auth/logout', memberData);
+}
+
+export { registerMember, loginMember, logoutMember };

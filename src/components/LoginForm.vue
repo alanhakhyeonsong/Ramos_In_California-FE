@@ -6,7 +6,7 @@
     </div>
     <div>
       <label for="password">password: </label>
-      <input id="password" type="text" v-model="password" placeholder="password"/>
+      <input id="password" type="password" v-model="password" placeholder="password"/>
     </div>
     <button :disabled="!isEmailValid || !password" type="submit">
       로그인
@@ -18,6 +18,7 @@
 <script>
 import { loginMember } from  "@/api/index"
 import { validateEmail } from "@/utils/validation";
+import { saveAccessToken, saveRefreshToken } from "@/utils/cookies";
 
 export default {
   name: "LoginForm",
@@ -45,10 +46,12 @@ export default {
         };
         const { data } = await loginMember(memberData); // 결과로 토큰이 반환됨.
         console.log(data);
-        this.logMessage = `${memberData.email} 님 환영합니다.`;
-        this.$store.commit('setEmail', memberData.email);
+        window.alert(`${memberData.email} 님 환영합니다.`);
+        // this.logMessage = `${memberData.email} 님 환영합니다.`;
         this.$store.commit('setAccessToken', data.data.accessToken);
         this.$store.commit('setRefreshToken', data.data.refreshToken);
+        saveAccessToken(data.data.accessToken);
+        saveRefreshToken(data.data.refreshToken);
         this.$router.push("/main");
       } catch (error) {
         console.log(error.response.data.message);
@@ -69,7 +72,7 @@ export default {
 form {
   border: 3px solid #f1f1f1;
 }
-input[type=text] {
+input[type=text], input[type=password] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;

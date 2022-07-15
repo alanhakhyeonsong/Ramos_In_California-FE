@@ -5,15 +5,48 @@
     </div>
     <div class="navigations">
       <a href="https://github.com/alanhakhyeonsong">About</a>
-      <router-link to="/login">Login</router-link>
-      <router-link to="/signup">Sign Up</router-link>
+      <template v-if="isMemberLogin">
+        <a href="javascript:;" @click="logout" class="logout-button">
+          Logout
+        </a>
+      </template>
+
+      <template v-else>
+        <router-link to="/login">Login</router-link>
+        <router-link to="/signup">SignUp</router-link>
+      </template>
     </div>
   </header>
 </template>
 
 <script>
+import { logoutMember } from "@/api";
+import { deleteCookie } from "@/utils/cookies";
+
 export default {
-  name: "AppHeader"
+  name: "AppHeader",
+  computed: {
+    isMemberLogin() {
+      return this.$store.getters.isLogin;
+    }
+  },
+  methods: {
+    async logout() {
+      try {
+        const memberData = {
+          refreshToken: this.$store.getters.getRefreshToken,
+        };
+        await logoutMember(memberData);
+        deleteCookie('accessToken');
+        deleteCookie('refreshToken');
+        this.$store.commit('clearAccessToken');
+        this.$store.commit('clearRefreshToken');
+        window.alert("로그아웃 되었습니다.");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
 }
 </script>
 
