@@ -21,6 +21,7 @@
 
 <script>
 import { logoutMember } from "@/api";
+import { deleteCookie } from "@/utils/cookies";
 
 export default {
   name: "AppHeader",
@@ -36,7 +37,8 @@ export default {
           refreshToken: this.$store.getters.getRefreshToken,
         };
         await logoutMember(memberData);
-        this.$store.commit('clearEmail');
+        deleteCookie('accessToken');
+        deleteCookie('refreshToken');
         this.$store.commit('clearAccessToken');
         this.$store.commit('clearRefreshToken');
         window.alert("로그아웃 되었습니다.");

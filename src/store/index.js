@@ -1,32 +1,30 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {
+  getAccessToken,
+  getRefreshToken,
+} from "@/utils/cookies";
+// import {loginMember} from "@/api";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    email: '',
-    accessToken: '',
-    refreshToken: '',
+    accessToken: getAccessToken() || '',
+    refreshToken: getRefreshToken() || '',
   },
   getters: {
     isLogin(state) {
-      return state.email !== '';
+      return state.accessToken !== '';
+    },
+    getAccessToken(state) {
+      return state.accessToken;
     },
     getRefreshToken(state) {
       return state.refreshToken;
     }
   },
   mutations: {
-    setEmail(state, email) {
-      state.email = email;
-    },
-    setNickname(state, nickname) {
-      state.nickname = nickname;
-    },
-    clearEmail(state) {
-      state.email = '';
-    },
     setAccessToken(state, accessToken) {
       state.accessToken = accessToken;
     },

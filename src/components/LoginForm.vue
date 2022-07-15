@@ -18,6 +18,7 @@
 <script>
 import { loginMember } from  "@/api/index"
 import { validateEmail } from "@/utils/validation";
+import { saveAccessToken, saveRefreshToken } from "@/utils/cookies";
 
 export default {
   name: "LoginForm",
@@ -45,10 +46,12 @@ export default {
         };
         const { data } = await loginMember(memberData); // 결과로 토큰이 반환됨.
         console.log(data);
-        this.logMessage = `${memberData.email} 님 환영합니다.`;
-        this.$store.commit('setEmail', memberData.email);
+        window.alert(`${memberData.email} 님 환영합니다.`);
+        // this.logMessage = `${memberData.email} 님 환영합니다.`;
         this.$store.commit('setAccessToken', data.data.accessToken);
         this.$store.commit('setRefreshToken', data.data.refreshToken);
+        saveAccessToken(data.data.accessToken);
+        saveRefreshToken(data.data.refreshToken);
         this.$router.push("/main");
       } catch (error) {
         console.log(error.response.data.message);
