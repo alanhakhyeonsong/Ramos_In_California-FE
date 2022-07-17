@@ -15,10 +15,10 @@ import AppFooter from "@/components/common/AppFooter"
 export default {
   components: {
     AppHeader,
-    AppFooter
+    AppFooter,
   },
 };
 </script>
 <style>
-
+@import './css/common.css';
 </style>
