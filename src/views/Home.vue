@@ -1,16 +1,48 @@
 <template>
   <div class="home">
-    메인 페이지
+    <div class="main list-container contents">
+      <ul>
+        <PostList
+            v-for="postItem in postItems"
+            :key="postItem.id"
+            :postItem="postItem"
+            @refresh="fetchData"
+        ></PostList>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import PostList from "@/components/posts/PostList";
+import { getAllPosts } from "@/api/posts";
 
 export default {
   name: 'Home',
   components: {
-
+    PostList,
+  },
+  data() {
+    return {
+      postItems: [],
+    };
+  },
+  mounted() {
+  },
+  methods: {
+    async fetchData() {
+      const { data } = await getAllPosts();
+      this.postItems = data.data.content;
+    },
+  },
+  created() {
+    this.fetchData();
   }
 }
 </script>
+
+<style>
+ul{
+  list-style:none;
+}
+</style>

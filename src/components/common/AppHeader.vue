@@ -6,6 +6,7 @@
     <div class="navigations">
       <a href="https://github.com/alanhakhyeonsong">About</a>
       <template v-if="isMemberLogin">
+        <router-link to="/new">글쓰기</router-link>
         <a href="javascript:;" @click="logout" class="logout-button">
           Logout
         </a>
@@ -20,8 +21,8 @@
 </template>
 
 <script>
-import { logoutMember } from "@/api";
 import { deleteCookie } from "@/utils/cookies";
+import {logoutMember} from "@/api/auth";
 
 export default {
   name: "AppHeader",
@@ -41,6 +42,7 @@ export default {
         deleteCookie('refreshToken');
         this.$store.commit('clearAccessToken');
         this.$store.commit('clearRefreshToken');
+        this.$router.push("/main");
         window.alert("로그아웃 되었습니다.");
       } catch (error) {
         console.log(error);
